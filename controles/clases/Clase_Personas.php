@@ -23,9 +23,8 @@ class Personas {
     public function Listar() {
         $pd = new Conexion();
         $string = "select 
-             p.*,u.*,a.idavatar,a.avatar
-             FROM personas p LEFT JOIN usuario u on p.idusuario=u.idusuario LEFT JOIN perfil pe on u.id_perfil=pe.id_perfil LEFT join avatar a on 
-                p.idpersona=a.idpersona  ORDER BY apellido,nombre";
+            * 
+             FROM personas ";
         $consulta = $pd->prepare($string);
 
         $consulta->execute();
@@ -41,11 +40,12 @@ class Personas {
 
     public function Buscarpersona($persona) {
         $pd = new Conexion();
-        $string = "SELECT * FROM usuarios 
-         WHERE nombre LIKE _utf8  '%:persona%' 
-         AND apellidos LIKE _utf8  '%:persona%'";
+        $string = "SELECT * FROM personas 
+         WHERE nombre LIKE _utf8  '$persona%' 
+         or apellido LIKE _utf8  '$persona%'";
         $consulta = $pd->prepare($string);
-        $consulta->bindParam("persona", $string);
+//        $consulta->bindParam("persona",$persona);
+        $consulta->execute();
         if ($consulta->rowCount() > 0) {
             while ($registro = $consulta->fetch(PDO::FETCH_ASSOC)) {
                 $rows[] = $registro;
@@ -54,6 +54,7 @@ class Personas {
 
             return $pa;
         }
+        
     }
 
     public function InsertarPersona($data) {

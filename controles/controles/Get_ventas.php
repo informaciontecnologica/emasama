@@ -12,13 +12,12 @@ switch ($tipo) {
 
         $li = new personas();
         $resultado = $li->Buscarpersona($data->persona);
-
         echo json_encode($resultado);
         break;
-    case 'nuevo':
+    case 'Listar':
 
         $li = new personas();
-        $resultado = $li->InsertarPersona($data);
+        $resultado = $li->Listar($data);
         echo json_encode($resultado);
         break;
     case 'cambiomatricula':
